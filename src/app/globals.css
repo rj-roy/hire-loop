@@ -10,3 +10,7 @@
   --background: #1f1f1f;
   --foreground: #eef0ee;
 }
+@theme{
+  --color-black-bg: #050508;
+  --color-white-bg: #f5f5f5;
+}

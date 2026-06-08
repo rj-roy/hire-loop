@@ -9,7 +9,7 @@ export default function NavBar() {
     const { data: session } = authClient.useSession();
     return (
         <div className='px-4'>
-            <nav className="bg-gray-300 dark:bg-gray-900 px-15 py-4 max-w-7xl mx-auto rounded-2xl mt-5 border dark:border-gray-500 border-gray-300">
+            <nav className="bg-white-bg dark:bg-black-bg px-15 py-4 max-w-7xl mx-auto rounded-2xl mt-5 border dark:border-gray-500 border-gray-300">
                 <div className=" flex items-center justify-between">
                     {/* Logo */}
                     <Link href="/" className="flex items-center">
