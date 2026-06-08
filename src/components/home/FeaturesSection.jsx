@@ -100,7 +100,7 @@ export default function FeaturesSection() {
                             className="group relative p-6 bg-white dark:bg-[#12121a] rounded-2xl border border-gray-200 dark:border-gray-800 hover:border-indigo-500/50 dark:hover:border-indigo-500/50 transition-all duration-300 hover:shadow-xl dark:hover:shadow-indigo-500/10"
                         >
                             {/* Icon Container */}
-                            <div className="w-12 h-12 mb-4 rounded-xl bg-gradient-to-br from-indigo-500/10 to-purple-500/10 dark:from-indigo-500/20 dark:to-purple-500/20 flex items-center justify-center text-indigo-600 dark:text-indigo-400 group-hover:scale-110 transition-transform duration-300">
+                            <div className="w-12 h-12 mb-4 rounded-xl bg-linear-to-br from-indigo-500/10 to-purple-500/10 dark:from-indigo-500/20 dark:to-purple-500/20 flex items-center justify-center text-indigo-600 dark:text-indigo-400 group-hover:scale-110 transition-transform duration-300">
                                 {feature.icon}
                             </div>
 
