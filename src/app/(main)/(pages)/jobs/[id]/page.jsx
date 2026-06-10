@@ -1,6 +1,6 @@
 import HandleApplyNow from '@/lib/actions/HandleApplyNow';
 import { auth } from '@/lib/auth';
-import { getAllJobs } from '@/lib/getData';
+import { getAllApplications, getAllJobs } from '@/lib/getData';
 import { headers } from 'next/headers';
 import Link from 'next/link';
 
@@ -40,16 +40,25 @@ export async function generateMetadata({ params }) {
 const JobDetails = async ({params}) => {
     const {id} = await params;
     const allJobs = await getAllJobs();
+    const allApplications = await getAllApplications();
     const expectedJob = allJobs?.find(job => job._id === id);
     const session = await auth.api.getSession({
         headers: await headers(),
     });
     const userId = session?.user?.id;
+    const isApplied = allApplications.find(app => app.userId === userId && app.jobId === id);
 
-    const handleApplyNow = ()=>{
-        console.log("object");
-    }
-    
+    // if(!session) {
+    //     return (
+    //         <div>
+    //             <Link href="/">
+    //                 <button>Go Back</button>
+    //             </Link>
+    //             <h1>Please login to view job details and apply.</h1>
+    //         </div>
+    //     )
+    // }
+
     if (!expectedJob) {
         return (
             <div className="min-h-screen bg-white-bg dark:bg-black-bg pt-24 pb-20 flex items-center justify-center">
@@ -95,6 +104,8 @@ const JobDetails = async ({params}) => {
                         <HandleApplyNow
                             jobId={expectedJob._id}
                             jobTitle={expectedJob.jobTitle}
+                            userId={userId}
+                            isApplied={isApplied}
                         />
                     </div>
                 </div>
