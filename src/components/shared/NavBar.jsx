@@ -34,6 +34,7 @@ export default function NavBar() {
     const handleLogout = async () => {
         await authClient.signOut();
         setIsUserMenuOpen(false);
+        window.location.reload();
     };
 
     const navLinks = [

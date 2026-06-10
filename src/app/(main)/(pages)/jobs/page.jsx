@@ -188,73 +188,74 @@ const AllJobs = () => {
 
                         {/* Job Listings */}
                         <div className="space-y-4">
-                            {currentJobs?.map((job) => (
-                                <div
-                                    key={job._id}
-                                    className="bg-gray-50 dark:bg-gray-900/50 rounded-2xl p-6 border border-gray-200 dark:border-gray-800 hover:border-blue-500 dark:hover:border-blue-500 transition-all duration-200 group cursor-pointer"
-                                >
-                                    <div className="flex items-start gap-4">
-                                        {/* Company Logo - Using first letter of category since no company field */}
-                                        <div className="shrink-0 w-12 h-12 bg-linear-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center text-white font-bold text-lg">
-                                            {job.jobCategory?.charAt(0).toUpperCase() || 'J'}
-                                        </div>
-
-                                        {/* Job Details */}
-                                        <div className="flex-1 min-w-0">
-                                            <div className="flex items-start justify-between gap-4 mb-2">
-                                                <div>
-                                                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-                                                        {job.jobTitle}
-                                                    </h3>
-                                                    <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                                                        {job.jobCategory} • {job.location} {job.isRemote && '(Remote)'}
-                                                    </p>
-                                                </div>
-                                                <button className="shrink-0 text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-                                                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
-                                                    </svg>
-                                                </button>
+                            {currentJobs?.map((job , index) => (
+                                <Link href={`jobs/${job._id}`} key={index}>
+                                    <div
+                                        className="bg-gray-50 dark:bg-gray-900/50 rounded-2xl p-6 border border-gray-200 dark:border-gray-800 hover:border-blue-500 dark:hover:border-blue-500 transition-all duration-200 group cursor-pointer"
+                                    >
+                                        <div className="flex items-start gap-4">
+                                            {/* Company Logo - Using first letter of category since no company field */}
+                                            <div className="shrink-0 w-12 h-12 bg-linear-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center text-white font-bold text-lg">
+                                                {job.jobCategory?.charAt(0).toUpperCase() || 'J'}
                                             </div>
 
-                                            {/* Tags */}
-                                            <div className="flex flex-wrap items-center gap-3 mt-4">
-                                                {/* Salary */}
-                                                <span className="inline-flex items-center px-3 py-1 rounded-lg bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300 text-xs font-medium">
-                                                    <svg className="w-3 h-3 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                                    </svg>
-                                                    {job.currency} {job.minSalary?.toLocaleString()} - {job.maxSalary?.toLocaleString()}
-                                                </span>
-
-                                                {/* Job Type */}
-                                                <span className="inline-flex items-center px-3 py-1 rounded-lg bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300 text-xs font-medium capitalize">
-                                                    {job.jobType}
-                                                </span>
-
-                                                {/* Remote Badge */}
-                                                {job.isRemote && (
-                                                    <span className="inline-flex items-center px-3 py-1 rounded-lg bg-blue-900/30 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 text-xs font-medium border border-blue-600/30">
-                                                        <svg className="w-3 h-3 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                            {/* Job Details */}
+                                            <div className="flex-1 min-w-0">
+                                                <div className="flex items-start justify-between gap-4 mb-2">
+                                                    <div>
+                                                        <h3 className="text-lg font-semibold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                                                            {job.jobTitle}
+                                                        </h3>
+                                                        <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                                                            {job.jobCategory} • {job.location} {job.isRemote && '(Remote)'}
+                                                        </p>
+                                                    </div>
+                                                    <button className="shrink-0 text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                                                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
                                                         </svg>
-                                                        Remote
-                                                    </span>
-                                                )}
+                                                    </button>
+                                                </div>
 
-                                                {/* Deadline */}
-                                                {job.deadline && (
-                                                    <span className="inline-flex items-center px-3 py-1 rounded-lg bg-orange-900/30 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400 text-xs font-medium border border-orange-600/30">
+                                                {/* Tags */}
+                                                <div className="flex flex-wrap items-center gap-3 mt-4">
+                                                    {/* Salary */}
+                                                    <span className="inline-flex items-center px-3 py-1 rounded-lg bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300 text-xs font-medium">
                                                         <svg className="w-3 h-3 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                                                         </svg>
-                                                        Deadline: {new Date(job.deadline).toLocaleDateString()}
+                                                        {job.currency} {job.minSalary?.toLocaleString()} - {job.maxSalary?.toLocaleString()}
                                                     </span>
-                                                )}
+
+                                                    {/* Job Type */}
+                                                    <span className="inline-flex items-center px-3 py-1 rounded-lg bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300 text-xs font-medium capitalize">
+                                                        {job.jobType}
+                                                    </span>
+
+                                                    {/* Remote Badge */}
+                                                    {job.isRemote && (
+                                                        <span className="inline-flex items-center px-3 py-1 rounded-lg bg-blue-900/30 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 text-xs font-medium border border-blue-600/30">
+                                                            <svg className="w-3 h-3 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                                            </svg>
+                                                            Remote
+                                                        </span>
+                                                    )}
+
+                                                    {/* Deadline */}
+                                                    {job.deadline && (
+                                                        <span className="inline-flex items-center px-3 py-1 rounded-lg bg-orange-900/30 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400 text-xs font-medium border border-orange-600/30">
+                                                            <svg className="w-3 h-3 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                                            </svg>
+                                                            Deadline: {new Date(job.deadline).toLocaleDateString()}
+                                                        </span>
+                                                    )}
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </Link>
                             ))}
 
                             {currentJobs?.length === 0 && (

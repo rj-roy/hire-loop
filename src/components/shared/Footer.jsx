@@ -1,4 +1,10 @@
-export default function FooterSection() {
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
+
+export default async function FooterSection() {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
   const footerLinks = {
     Product: ['Job discovery', 'Worker AI', 'Companies', 'Salary data'],
     Navigations: ['Help center', 'Career library', 'Contact'],
@@ -8,7 +14,7 @@ export default function FooterSection() {
   return (
     <footer className="relative bg-white-bg dark:bg-black-bg overflow-hidden">
       {/* CTA Section with Grid Dome Background */}
-      <div className="relative pt-32 pb-24 px-4 text-center">
+      <div className={`${session ? 'hidden' : 'relative pt-32 pb-24 px-4 text-center'}`}>
         
         {/* Grid Dome PNG Background */}
         <div className="absolute inset-0 top-0 h-150 flex justify-center pointer-events-none">
