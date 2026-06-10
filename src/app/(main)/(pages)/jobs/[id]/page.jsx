@@ -1,4 +1,7 @@
+import HandleApplyNow from '@/lib/actions/HandleApplyNow';
+import { auth } from '@/lib/auth';
 import { getAllJobs } from '@/lib/getData';
+import { headers } from 'next/headers';
 import Link from 'next/link';
 
 export async function generateMetadata({ params }) {
@@ -37,8 +40,15 @@ export async function generateMetadata({ params }) {
 const JobDetails = async ({params}) => {
     const {id} = await params;
     const allJobs = await getAllJobs();
-
     const expectedJob = allJobs?.find(job => job._id === id);
+    const session = await auth.api.getSession({
+        headers: await headers(),
+    });
+    const userId = session?.user?.id;
+
+    const handleApplyNow = ()=>{
+        console.log("object");
+    }
     
     if (!expectedJob) {
         return (
@@ -82,9 +92,10 @@ const JobDetails = async ({params}) => {
                             </div>
                         </div>
                         
-                        <button className="bg-gray-900 dark:bg-white text-white dark:text-black px-6 py-2.5 rounded-md font-medium hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors">
-                            Apply Now
-                        </button>
+                        <HandleApplyNow
+                            jobId={expectedJob._id}
+                            jobTitle={expectedJob.jobTitle}
+                        />
                     </div>
                 </div>
 
