@@ -3,7 +3,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { authClient } from '@/lib/auth-client';
 import { toast, ToastContainer } from 'react-toastify';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 export default function SigninPage() {
     const [formData, setFormData] = useState({
@@ -14,6 +14,8 @@ export default function SigninPage() {
     const [errors, setErrors] = useState({});
     const [isLoading, setIsLoading] = useState(false);
     const router = useRouter();
+    const searchParams = useSearchParams();
+    const redirectTo = searchParams.get('redirect') || '/';
 
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
@@ -52,7 +54,6 @@ export default function SigninPage() {
             const { data, error } = await authClient.signIn.email({
                 email: formData.email,
                 password: formData.password,
-                callbackURL: '/'
             });
             
             if (error) {
@@ -60,7 +61,7 @@ export default function SigninPage() {
                 setErrors({ submit: error.message || 'Failed to sign in. Please check your credentials and try again.' });
             } else {
                 toast.success('Signed in successfully! Redirecting...');
-                router.push('/');
+                router.push(redirectTo);
             }
 
         } catch (error) {
@@ -213,7 +214,7 @@ export default function SigninPage() {
                         </div>
                         <div className="mt-6 text-center">
                             <Link
-                                href="/signup"
+                                href={`/signup${redirectTo ? `?redirect=${redirectTo}` : '/'}`}
                                 className="font-medium text-indigo-600 hover:text-indigo-500 transition-colors"
                             >
                                 Create a new account

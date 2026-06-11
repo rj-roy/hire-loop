@@ -3,6 +3,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { authClient } from '@/lib/auth-client';
 import { toast, ToastContainer } from 'react-toastify';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 export default function SignupPage() {
     const [formData, setFormData] = useState({
@@ -13,6 +14,9 @@ export default function SignupPage() {
     });
     const [errors, setErrors] = useState({});
     const [isLoading, setIsLoading] = useState(false);
+    const router = useRouter();
+    const searchParams = useSearchParams();
+    const redirectTo = searchParams.get('redirect') || '/';
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -53,10 +57,9 @@ export default function SignupPage() {
                 email: formData.email,
                 password: formData.password,
                 role: formData.role,
-                callbackURL:'/'
             });
             toast.success('Account created successfully! Redirecting...');
-            
+            router.push(redirectTo);
         } catch (error) {
             setErrors({ submit: 'Failed to create account. Please try again.' });
         } finally {
@@ -265,7 +268,7 @@ export default function SignupPage() {
                         </div>
                         <div className="mt-6 text-center">
                             <Link
-                                href="/login"
+                                href={`/signin${redirectTo ? `?redirect=${redirectTo}` : '/'}`}
                                 className="font-medium text-indigo-600 hover:text-indigo-500 transition-colors"
                             >
                                 Sign in to your account

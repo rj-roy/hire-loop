@@ -162,7 +162,7 @@ export default function ApplicationForm({ isOpen, onClose, jobId, jobTitle, user
                             </svg>
                         </button>
                         <h1 className='text-center text-3xl py-15 px-5'>Please
-                            <Link href={`/signin?jobs/${jobId}`} className='font-bold px-2 underline'>
+                            <Link href={`/signin?redirect=jobs/${jobId}`} className='font-bold px-2 underline'>
                                 Sign-in
                             </Link>
                             to apply for this job</h1>
@@ -190,7 +190,7 @@ export default function ApplicationForm({ isOpen, onClose, jobId, jobTitle, user
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                             </svg>
                         </button>
-                        <h1 className='text-center font-bold text-3xl py-15 px-5'>You Already Applied this job</h1>
+                        <h1 className='text-center font-bold text-3xl py-15 px-5'>You&apos;ve Already Applied this job. Please wait for comfirmation!</h1>
                     </div>
                 ) : (
                     <div className="relative bg-white-bg dark:bg-black-bg rounded-2xl shadow-2xl w-full max-w-md border border-gray-200 dark:border-gray-800 animate-in slide-in-from-bottom-4 duration-300">
