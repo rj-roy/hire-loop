@@ -47,17 +47,7 @@ const JobDetails = async ({params}) => {
     });
     const userId = session?.user?.id;
     const isApplied = allApplications.find(app => app.userId === userId && app.jobId === id);
-
-    // if(!session) {
-    //     return (
-    //         <div>
-    //             <Link href="/">
-    //                 <button>Go Back</button>
-    //             </Link>
-    //             <h1>Please login to view job details and apply.</h1>
-    //         </div>
-    //     )
-    // }
+    const isExceedLimit = allApplications.filter(app => app.userId === userId).length >= 3;
 
     if (!expectedJob) {
         return (
@@ -106,6 +96,7 @@ const JobDetails = async ({params}) => {
                             jobTitle={expectedJob.jobTitle}
                             userId={userId}
                             isApplied={isApplied}
+                            isExceedLimit={isExceedLimit}
                         />
                     </div>
                 </div>

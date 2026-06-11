@@ -2,7 +2,7 @@
 import ApplicationForm from '@/components/forms/ApplicationForm';
 import { useState } from 'react';
 
-const HandleApplyNow = ({ jobId, jobTitle, userId, isApplied }) => {
+const HandleApplyNow = ({ jobId, jobTitle, userId, isApplied, isExceedLimit }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const handleOpenModal = () => {
@@ -12,19 +12,6 @@ const HandleApplyNow = ({ jobId, jobTitle, userId, isApplied }) => {
     const handleCloseModal = () => {
         setIsModalOpen(false);
     };
-
-    // const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_BASE_URL}/api/jobs/applications`, {
-    //         method: "POST",
-    //         headers: {
-    //             "Content-Type": "application/json",
-    //         },
-    //         body: JSON.stringify({
-    //             jobId: jobId,
-    //             userId: userId,
-    //         }),
-    //     });
-    //     const data = await res.json();
-    //     console.log(data);
 
     return (
         <>
@@ -41,6 +28,7 @@ const HandleApplyNow = ({ jobId, jobTitle, userId, isApplied }) => {
                 jobTitle={jobTitle}
                 userId={userId}
                 isApplied={isApplied}
+                isExceedLimit={isExceedLimit}
             />
         </>
     );

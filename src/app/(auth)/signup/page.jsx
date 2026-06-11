@@ -52,14 +52,20 @@ export default function SignupPage() {
 
         // Simulate API call
         try {
-            const {data, error} = await authClient.signUp.email({
+            const { data, error } = await authClient.signUp.email({
                 name: formData.name,
                 email: formData.email,
                 password: formData.password,
                 role: formData.role,
             });
-            toast.success('Account created successfully! Redirecting...');
-            router.push(redirectTo);
+            if (data) {
+                toast.success('Account created successfully! Redirecting...');
+                router.push(redirectTo);
+            };
+            if (!data && error) {
+                toast.error(error?.message || 'Failed to create account. Please try again.');
+            }
+
         } catch (error) {
             setErrors({ submit: 'Failed to create account. Please try again.' });
         } finally {
@@ -70,7 +76,7 @@ export default function SignupPage() {
     return (
         <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
             <div className="sm:mx-auto sm:w-full sm:max-w-md">
-                <ToastContainer/>
+                <ToastContainer />
                 {/* Logo / Brand */}
                 <div className="flex justify-center items-center gap-2 mb-2">
                     <div className="bg-indigo-600 p-2 rounded-lg">
