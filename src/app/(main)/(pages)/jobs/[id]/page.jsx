@@ -48,6 +48,7 @@ const JobDetails = async ({params}) => {
     const userId = session?.user?.id;
     const isApplied = allApplications.find(app => app.userId === userId && app.jobId === id);
     const isExceedLimit = allApplications.filter(app => app.userId === userId).length >= 3;
+    const isSeeker = session?.user?.role === 'seeker';
 
     if (!expectedJob) {
         return (
@@ -97,6 +98,7 @@ const JobDetails = async ({params}) => {
                             userId={userId}
                             isApplied={isApplied}
                             isExceedLimit={isExceedLimit}
+                            isSeeker={isSeeker}
                         />
                     </div>
                 </div>

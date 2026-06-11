@@ -2,7 +2,7 @@
 import ApplicationForm from '@/components/forms/ApplicationForm';
 import { useState } from 'react';
 
-const HandleApplyNow = ({ jobId, jobTitle, userId, isApplied, isExceedLimit }) => {
+const HandleApplyNow = ({ jobId, jobTitle, userId, isApplied, isExceedLimit, isSeeker}) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const handleOpenModal = () => {
@@ -29,6 +29,7 @@ const HandleApplyNow = ({ jobId, jobTitle, userId, isApplied, isExceedLimit }) =
                 userId={userId}
                 isApplied={isApplied}
                 isExceedLimit={isExceedLimit}
+                isSeeker={isSeeker}
             />
         </>
     );
