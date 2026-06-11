@@ -1,13 +1,14 @@
-import HandleApplyNow from '@/lib/actions/HandleApplyNow';
+import HandleApplyNow from '@/components/jobs/HandleApplyNow';
 import { auth } from '@/lib/auth';
-import { getAllApplications, getAllJobs } from '@/lib/getData';
+import { getAllApplications, getJobsById } from '@/lib/getData';
 import { headers } from 'next/headers';
 import Link from 'next/link';
 
 export async function generateMetadata({ params }) {
     const { id } = await params;
-    const allJobs = await getAllJobs();
-    const expectedJob = allJobs.find(job => job._id === id);
+    // const allJobs = await getAllJobs();
+    // const expectedJob = allJobs.find(job => job._id === id);
+    const expectedJob = await getJobsById(id);
 
     if (!expectedJob) {
         return {
@@ -37,11 +38,11 @@ export async function generateMetadata({ params }) {
     };
 }
 
-const JobDetails = async ({params}) => {
-    const {id} = await params;
-    const allJobs = await getAllJobs();
+const JobDetails = async ({ params }) => {
+    const { id } = await params;
     const allApplications = await getAllApplications();
-    const expectedJob = allJobs?.find(job => job._id === id);
+    // const expectedJob = allJobs?.find(job => job._id === id);
+    const expectedJob = await getJobsById(id);
     const session = await auth.api.getSession({
         headers: await headers(),
     });
@@ -65,7 +66,7 @@ const JobDetails = async ({params}) => {
     }
 
     return (
-        <div className="min-h-screen bg-white-bg dark:bg-black-bg pt-24 pb-20">
+        <div className="min-h-screen bg-white-bg dark:bg-black-bg pt-10 pb-20">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* Header Section */}
                 <div className="bg-sec-white-bg dark:bg-sec-black-bg rounded-lg p-6 mb-6 border border-gray-200 dark:border-gray-800">
@@ -77,7 +78,7 @@ const JobDetails = async ({params}) => {
                                     {expectedJob.company?.charAt(0) || 'C'}
                                 </span>
                             </div>
-                            
+
                             <div>
                                 <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">{expectedJob.jobTitle}</h1>
                                 <div className="flex items-center gap-2">
@@ -91,7 +92,7 @@ const JobDetails = async ({params}) => {
                                 </div>
                             </div>
                         </div>
-                        
+
                         <HandleApplyNow
                             jobId={expectedJob._id}
                             jobTitle={expectedJob.jobTitle}
@@ -155,9 +156,9 @@ const JobDetails = async ({params}) => {
                         <div className="bg-sec-white-bg dark:bg-sec-black-bg rounded-lg p-6 border border-gray-200 dark:border-gray-800">
                             <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Job Description</h2>
                             <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-                                We are looking for a talented {expectedJob.jobTitle} to join our team. 
-                                You will be working on exciting projects and collaborating with cross-functional teams 
-                                to deliver high-quality products. This is a great opportunity to grow your career 
+                                We are looking for a talented {expectedJob.jobTitle} to join our team.
+                                You will be working on exciting projects and collaborating with cross-functional teams
+                                to deliver high-quality products. This is a great opportunity to grow your career
                                 with a dynamic and innovative company.
                             </p>
                         </div>
@@ -192,7 +193,7 @@ const JobDetails = async ({params}) => {
                                         ))}
                                     </div>
                                 )}
-                                
+
                                 <ul className="space-y-3">
                                     <li className="flex items-start gap-3">
                                         <span className="text-gray-900 dark:text-white mt-1.5">•</span>
@@ -228,7 +229,7 @@ const JobDetails = async ({params}) => {
                     <div className="lg:col-span-1">
                         <div className="bg-sec-white-bg dark:bg-sec-black-bg rounded-lg p-6 sticky top-24 border border-gray-200 dark:border-gray-800">
                             <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Company Overview</h2>
-                            
+
                             {/* Company Image */}
                             <div className="w-full h-48 bg-gray-200 dark:bg-gray-800 rounded-lg mb-6 flex items-center justify-center overflow-hidden">
                                 <div className="w-full h-full bg-linear-to-br from-gray-300 to-gray-400 dark:from-gray-700 dark:to-gray-800 flex items-center justify-center">
@@ -243,12 +244,12 @@ const JobDetails = async ({params}) => {
                                     <span className="text-gray-600 dark:text-gray-400 text-sm">SIZE</span>
                                     <span className="text-gray-900 dark:text-white text-sm font-medium">250 - 500 Employees</span>
                                 </div>
-                                
+
                                 <div className="flex justify-between items-center py-3 border-b border-gray-200 dark:border-gray-800">
                                     <span className="text-gray-600 dark:text-gray-400 text-sm">INDUSTRY</span>
                                     <span className="text-gray-900 dark:text-white text-sm font-medium">{expectedJob.jobCategory || 'Technology'}</span>
                                 </div>
-                                
+
                                 <button className="w-full bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 text-gray-900 dark:text-white py-2.5 rounded-md text-sm font-medium transition-colors mt-4">
                                     Visit Website
                                 </button>

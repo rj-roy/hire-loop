@@ -9,3 +9,9 @@ export const getAllApplications = async ()=>{
     const result = await res.json();
     return result;
 };
+
+export const getJobsById = async (id)=>{
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_BASE_URL}/jobs/${id}`);
+    const result = await res.json();
+    return result;
+};

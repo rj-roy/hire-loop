@@ -1,5 +1,10 @@
-import PricingSection from '@/components/home/PricingSection';
+import PricingSection from '@/components/pricing/PricingSection';
 import React from 'react';
+
+export const metadata = {
+    title: 'Pricing | Hire Loop',
+    description: 'Hire Loop Pricing Page',
+};
 
 const PricingPage = () => {
     return (
