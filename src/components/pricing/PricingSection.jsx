@@ -3,20 +3,22 @@ import { useState } from 'react';
 
 const jobSeekerPlans = [
   {
-    name: 'Seeker_Free',
+    name: 'Free',
+    id: 'seeker_free',
     price: 0,
     period: '/forever',
     subtitle: 'Get started with the basics',
     featured: false,
     features: [
-      'Browse & save up to 10 jobs',
-      'Apply to up to 3 jobs per month',
-      'Basic profile',
-      'Email alerts',
+        'Browse & save up to 10 jobs',
+        'Apply to up to 3 jobs per month',
+        'Basic profile',
+        'Email alerts',
     ],
   },
   {
-    name: 'Seeker_Pro',
+    name: 'Pro',
+    id: 'seeker_pro',
     price: 19,
     period: '/month',
     subtitle: 'For serious job seekers',
@@ -29,7 +31,8 @@ const jobSeekerPlans = [
     ],
   },
   {
-    name: 'Seeker_Premium',
+    name: 'Premium',
+    id: 'seeker_premium',
     price: 39,
     period: '/month',
     subtitle: 'Maximum visibility & support',
@@ -46,7 +49,8 @@ const jobSeekerPlans = [
 
 const recruiterPlans = [
   {
-    name: 'Recruiter_Free',
+    name: 'Free',
+    id: 'recruiter_free',
     price: 0,
     period: '/forever',
     subtitle: 'Great for your first year of hiring',
@@ -58,7 +62,8 @@ const recruiterPlans = [
     ],
   },
   {
-    name: 'Recruiter_Growth',
+    name: 'Recruiter Growth',
+    id: 'recruiter_growth',
     price: 49,
     period: '/month',
     subtitle: 'Scale your hiring pipeline',
@@ -71,7 +76,8 @@ const recruiterPlans = [
     ],
   },
   {
-    name: 'Recruiter_Enterprise',
+    name: 'Recruiter Enterprise',
+    id: 'recruiter_enterprise',
     price: 149,
     period: '/month',
     subtitle: 'Full power, full branding',
@@ -130,7 +136,6 @@ const ChevronIcon = ({ open }) => (
 
 export default function PricingSection() {
   const [audience, setAudience] = useState('seekers');
-  // const [billing, setBilling] = useState('monthly');
   const [openFaq, setOpenFaq] = useState(null);
 
   const plans = audience === 'seekers' ? jobSeekerPlans : recruiterPlans;
@@ -188,6 +193,7 @@ export default function PricingSection() {
         {/* ── Pricing Cards ─────────────────────────────────────────────── */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
           {plans.map((plan, index) => {
+            console.log(plan.id);
             return (
               <div
                 key={`${audience}-${index}`}
