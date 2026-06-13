@@ -5,7 +5,7 @@ import { Lock } from '@gravity-ui/icons';
 export default function ForbiddenPage() {
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col items-center justify-center p-6 dark:bg-slate-900">
-      <div className="max-w-md w-full text-center space-y-8 backdrop-blur-sm bg-white/40 p-8 rounded-2xl shadow-xl border border-slate-200/50 dark:bg-slate-800/40 dark:border-slate-700/50">
+      <div className="max-w-md w-full text-center space-y-8 backdrop-blur-sm bg-white/40 p-8 rounded-2xl shadow-xl dark:bg-slate-800/40 ">
         
         {/* Icon Container */}
         <div className="relative flex justify-center">

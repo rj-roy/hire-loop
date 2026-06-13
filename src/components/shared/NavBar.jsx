@@ -268,7 +268,7 @@ export default function NavBar() {
             </nav>
 
             {/* Spacer for fixed header */}
-            <div className="h-16 lg:h-20"></div>
+            {/* <div className="h-16 lg:h-20"></div> */}
         </>
     );
 }
