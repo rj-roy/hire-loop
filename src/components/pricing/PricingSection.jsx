@@ -3,8 +3,8 @@ import { useState } from 'react';
 
 const jobSeekerPlans = [
   {
-    name: 'Free',
-    monthlyPrice: 0,
+    name: 'Seeker_Free',
+    price: 0,
     period: '/forever',
     subtitle: 'Get started with the basics',
     featured: false,
@@ -16,8 +16,8 @@ const jobSeekerPlans = [
     ],
   },
   {
-    name: 'Pro',
-    monthlyPrice: 19,
+    name: 'Seeker_Pro',
+    price: 19,
     period: '/month',
     subtitle: 'For serious job seekers',
     featured: true,
@@ -29,8 +29,8 @@ const jobSeekerPlans = [
     ],
   },
   {
-    name: 'Premium',
-    monthlyPrice: 39,
+    name: 'Seeker_Premium',
+    price: 39,
     period: '/month',
     subtitle: 'Maximum visibility & support',
     featured: false,
@@ -46,8 +46,8 @@ const jobSeekerPlans = [
 
 const recruiterPlans = [
   {
-    name: 'Free',
-    monthlyPrice: 0,
+    name: 'Recruiter_Free',
+    price: 0,
     period: '/forever',
     subtitle: 'Great for your first year of hiring',
     featured: false,
@@ -58,8 +58,8 @@ const recruiterPlans = [
     ],
   },
   {
-    name: 'Growth',
-    monthlyPrice: 49,
+    name: 'Recruiter_Growth',
+    price: 49,
     period: '/month',
     subtitle: 'Scale your hiring pipeline',
     featured: true,
@@ -71,8 +71,8 @@ const recruiterPlans = [
     ],
   },
   {
-    name: 'Enterprise',
-    monthlyPrice: 149,
+    name: 'Recruiter_Enterprise',
+    price: 149,
     period: '/month',
     subtitle: 'Full power, full branding',
     featured: false,
@@ -128,22 +128,9 @@ const ChevronIcon = ({ open }) => (
   </svg>
 );
 
-// ── Helpers ────────────────────────────────────────────────────────────────────
-
-function formatPrice(monthlyPrice, billing) {
-  if (monthlyPrice === 0) return { display: '$0', period: '/forever' };
-  if (billing === 'yearly') {
-    const yearlyMonthly = Math.round(monthlyPrice * 0.8);
-    return { display: `$${yearlyMonthly}`, period: '/month' };
-  }
-  return { display: `$${monthlyPrice}`, period: '/month' };
-}
-
-// ── Component ──────────────────────────────────────────────────────────────────
-
 export default function PricingSection() {
-  const [audience, setAudience] = useState('seekers'); // 'seekers' | 'recruiters'
-  const [billing, setBilling] = useState('monthly'); // 'monthly' | 'yearly'
+  const [audience, setAudience] = useState('seekers');
+  // const [billing, setBilling] = useState('monthly');
   const [openFaq, setOpenFaq] = useState(null);
 
   const plans = audience === 'seekers' ? jobSeekerPlans : recruiterPlans;
@@ -170,8 +157,8 @@ export default function PricingSection() {
             <button
               onClick={() => setAudience('seekers')}
               className={`px-5 py-2 rounded-full text-sm font-medium transition-all duration-200 flex items-center gap-2 ${audience === 'seekers'
-                  ? 'bg-white dark:bg-white text-gray-900 shadow-sm'
-                  : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
+                ? 'bg-white dark:bg-white text-gray-900 shadow-sm'
+                : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
                 }`}
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -182,8 +169,8 @@ export default function PricingSection() {
             <button
               onClick={() => setAudience('recruiters')}
               className={`px-5 py-2 rounded-full text-sm font-medium transition-all duration-200 flex items-center gap-2 ${audience === 'recruiters'
-                  ? 'bg-white dark:bg-white text-gray-900 shadow-sm'
-                  : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
+                ? 'bg-white dark:bg-white text-gray-900 shadow-sm'
+                : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
                 }`}
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -195,41 +182,18 @@ export default function PricingSection() {
 
           {/* ── Billing Toggle ──────────────────────────────────────────── */}
           <div className="mt-6 inline-flex items-center p-1 rounded-full bg-gray-200 dark:bg-gray-900 border border-gray-300 dark:border-gray-800">
-            <button
-              onClick={() => setBilling('monthly')}
-              className={`px-5 py-2 rounded-full text-sm font-medium transition-all duration-200 ${billing === 'monthly'
-                  ? 'bg-white dark:bg-white text-gray-900 shadow-sm'
-                  : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
-                }`}
-            >
-              Monthly
-            </button>
-            <button
-              onClick={() => setBilling('yearly')}
-              className={`px-5 py-2 rounded-full text-sm font-medium transition-all duration-200 flex items-center gap-2 ${billing === 'yearly'
-                  ? 'bg-white dark:bg-white text-gray-900 shadow-sm'
-                  : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
-                }`}
-            >
-              Yearly
-              <span className="px-2 py-0.5 rounded-full bg-green-600 text-white text-[10px] font-bold">
-                −20%
-              </span>
-            </button>
           </div>
         </div>
 
         {/* ── Pricing Cards ─────────────────────────────────────────────── */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
           {plans.map((plan, index) => {
-            const { display, period } = formatPrice(plan.monthlyPrice, billing);
-            const isFree = plan.monthlyPrice === 0;
             return (
               <div
                 key={`${audience}-${index}`}
                 className={`relative rounded-2xl p-6 flex flex-col transition-all duration-300 ${plan.featured
-                    ? 'bg-white dark:bg-gray-100 border-2 border-indigo-500 dark:border-gray-200 shadow-2xl shadow-indigo-500/20 dark:shadow-indigo-500/10 scale-[1.02]'
-                    : 'bg-white dark:bg-gray-900/50 border border-gray-200 dark:border-gray-800'
+                  ? 'bg-white dark:bg-gray-100 border-2 border-indigo-500 dark:border-gray-200 shadow-2xl shadow-indigo-500/20 dark:shadow-indigo-500/10 scale-[1.02]'
+                  : 'bg-white dark:bg-gray-900/50 border border-gray-200 dark:border-gray-800'
                   }`}
               >
                 {/* Popular badge */}
@@ -249,17 +213,10 @@ export default function PricingSection() {
                 {/* Price */}
                 <div className="flex items-baseline gap-1 mb-1">
                   <span className={`text-4xl font-bold ${plan.featured ? 'text-gray-900' : 'text-gray-900 dark:text-white'}`}>
-                    {display}
+                    {plan.price === 0 ? 'Free' : `$${plan.price}`}
                   </span>
-                  <span className="text-sm text-gray-500 dark:text-gray-400">{period}</span>
+                  <span className="text-sm text-gray-500 dark:text-gray-400">{plan.period}</span>
                 </div>
-
-                {/* Yearly note */}
-                {!isFree && billing === 'yearly' && (
-                  <p className="text-xs text-green-600 dark:text-green-400 font-medium mb-1">
-                    Billed ${Math.round(plan.monthlyPrice * 0.8 * 12)}/year
-                  </p>
-                )}
 
                 {/* Subtitle */}
                 <p className={`text-sm mb-6 ${plan.featured ? 'text-gray-700' : 'text-gray-600 dark:text-gray-300'}`}>
@@ -275,8 +232,8 @@ export default function PricingSection() {
                     <li key={i} className="flex items-start gap-3">
                       <span
                         className={`shrink-0 w-5 h-5 rounded-full flex items-center justify-center mt-0.5 ${plan.featured
-                            ? 'bg-indigo-100 text-indigo-700 dark:bg-gray-200 dark:text-gray-700'
-                            : 'bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400'
+                          ? 'bg-indigo-100 text-indigo-700 dark:bg-gray-200 dark:text-gray-700'
+                          : 'bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-400'
                           }`}
                       >
                         <CheckIcon className="w-3 h-3" />
@@ -289,17 +246,21 @@ export default function PricingSection() {
                 </ul>
 
                 {/* CTA Button */}
-                <button
-                  className={`w-full py-3 px-4 rounded-xl font-medium text-sm flex items-center justify-between transition-all duration-200 ${plan.featured
-                      ? 'bg-gray-900 dark:bg-gray-900 text-white hover:bg-gray-800 dark:hover:bg-gray-800'
-                      : 'bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 border border-gray-200 dark:border-gray-700'
-                    }`}
-                >
-                  <span>{isFree ? 'Get Started Free' : 'Choose This Plan'}</span>
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
-                </button>
+                <div className="mt-8">
+                  <form action="/api/checkout_sessions" method="POST">
+                    <input type="hidden" name="plan_id" value={plan.id} />
+                    <section>
+                      <button type="submit" role="link"
+                        className={`block w-full text-center text-xs font-semibold px-4 py-3 rounded-xl transition duration-200 ${plan.featured
+                          ? 'bg-blue-600 hover:bg-blue-500 text-white shadow-lg shadow-blue-900/20'
+                          : 'bg-zinc-800 hover:bg-zinc-700 text-zinc-200 border border-zinc-700/50'
+                          }`}
+                      >
+                        Checkout
+                      </button>
+                    </section>
+                  </form>
+                </div>
               </div>
             );
           })}
@@ -325,8 +286,8 @@ export default function PricingSection() {
                 <div
                   key={index}
                   className={`rounded-xl border transition-colors duration-200 ${isOpen
-                      ? 'border-indigo-300 dark:border-indigo-700 bg-white dark:bg-gray-900/60'
-                      : 'border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900/30'
+                    ? 'border-indigo-300 dark:border-indigo-700 bg-white dark:bg-gray-900/60'
+                    : 'border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900/30'
                     }`}
                 >
                   <button
