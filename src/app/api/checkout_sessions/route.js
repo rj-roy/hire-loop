@@ -7,12 +7,10 @@ export async function POST(request) {
         const formData = await request.formData()
         const planId = formData.get('plan_id')
         const priceId = PLAN_PRICE_ID[planId];
-        console.log(priceId);
         
         const headersList = await headers()
         const origin = headersList.get('origin')
 
-        // Create Checkout Sessions from body params.
         const session = await stripe.checkout.sessions.create({
             line_items: [
                 {
@@ -21,7 +19,10 @@ export async function POST(request) {
                 },
             ],
             mode: 'subscription',
-            success_url: `${origin}/success?session_id={CHECKOUT_SESSION_ID}`,
+            metadata: {
+                planId: planId,
+            },
+            success_url: `${origin}/pricing/success?session_id={CHECKOUT_SESSION_ID}`,
         });
         return NextResponse.redirect(session.url, 303)
     } catch (err) {

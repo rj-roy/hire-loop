@@ -1,5 +1,6 @@
 'use client';
 import { authClient } from '@/lib/auth-client';
+import { serverMutation } from '@/lib/core/server';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState, useRef, useEffect } from 'react';
@@ -13,15 +14,8 @@ export default function ApplicationForm({ isOpen, onClose, jobId, jobTitle, user
     const { data: session } = authClient.useSession();
     const router = useRouter();
 
-    const {
-        register,
-        handleSubmit,
-        reset,
-        formState: { errors },
-        setError,
-    } = useForm();
+    const { register,  handleSubmit, reset,  formState: { errors }, setError, } = useForm();
 
-    // Close modal on Escape key
     useEffect(() => {
         const handleEscape = (e) => {
             if (e.key === 'Escape') onClose();
@@ -35,7 +29,6 @@ export default function ApplicationForm({ isOpen, onClose, jobId, jobTitle, user
             document.body.style.overflow = 'unset';
         };
     }, [isOpen, onClose]);
-
     const handleFileChange = (e) => {
         const file = e.target.files[0];
         if (file) {
@@ -92,34 +85,19 @@ export default function ApplicationForm({ isOpen, onClose, jobId, jobTitle, user
                 userId,
             };
 
-            const res = await fetch(
-                `${process.env.NEXT_PUBLIC_SERVER_BASE_URL}/api/jobs/applications`,
-                {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify(applicationData),
-                }
-            );
-            const text = await res.text();
-            if (!res.ok) {
-                throw new Error("Failed to submit application");
-            }
+            await serverMutation(`/api/jobs/applications`, applicationData);
+
             alert("Application submitted successfully!");
             router.push('/dashboard');
-
             reset();
             setSelectedFile(null);
 
             if (fileInputRef.current) {
                 fileInputRef.current.value = "";
             }
-
             onClose();
         } catch (error) {
             console.error(error);
-
             setError("root", {
                 type: "manual",
                 message: error.message || "Something went wrong",
@@ -189,9 +167,11 @@ export default function ApplicationForm({ isOpen, onClose, jobId, jobTitle, user
                                     
                                     : isExceedLimit ? (
                                         <h1 className='text-center font-bold text-3xl py-15 px-8'>
-                                            You&apos;ve Exceed the Application Limit for this job. Please <Link href={'/pricing'} className='text-blue-500 hover:text-blue-700'>
+                                            You&apos;ve Exceed the Application Limit for this job. Please 
+                                            <Link href={'/pricing'} className='text-blue-500 hover:text-blue-700'>
                                                 Upgrade your plan
-                                            </Link> to continue applying.
+                                            </Link>
+                                             to continue applying.
                                         </h1>)
 
                                         : isApplied ? (

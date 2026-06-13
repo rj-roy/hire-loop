@@ -5,6 +5,8 @@ const jobSeekerPlans = [
   {
     name: 'Free',
     id: 'seeker_free',
+    action: '/dashboard/seeker/settings',
+    button: 'Get Started',
     price: 0,
     period: '/forever',
     subtitle: 'Get started with the basics',
@@ -19,6 +21,8 @@ const jobSeekerPlans = [
   {
     name: 'Pro',
     id: 'seeker_pro',
+    action: '/api/checkout_sessions',
+    button: 'Subscribe',
     price: 19,
     period: '/month',
     subtitle: 'For serious job seekers',
@@ -33,6 +37,8 @@ const jobSeekerPlans = [
   {
     name: 'Premium',
     id: 'seeker_premium',
+    action: '/api/checkout_sessions',
+    button: 'Subscribe',
     price: 39,
     period: '/month',
     subtitle: 'Maximum visibility & support',
@@ -51,6 +57,8 @@ const recruiterPlans = [
   {
     name: 'Free',
     id: 'recruiter_free',
+    action: '/dashboard/recruiter/settings',
+    button: 'Get Started',
     price: 0,
     period: '/forever',
     subtitle: 'Great for your first year of hiring',
@@ -64,6 +72,8 @@ const recruiterPlans = [
   {
     name: 'Recruiter Growth',
     id: 'recruiter_growth',
+    action: '/api/checkout_sessions',
+    button: 'Subscribe',
     price: 49,
     period: '/month',
     subtitle: 'Scale your hiring pipeline',
@@ -78,6 +88,8 @@ const recruiterPlans = [
   {
     name: 'Recruiter Enterprise',
     id: 'recruiter_enterprise',
+    action: '/api/checkout_sessions',
+    button: 'Subscribe',
     price: 149,
     period: '/month',
     subtitle: 'Full power, full branding',
@@ -253,7 +265,7 @@ export default function PricingSection() {
 
                 {/* CTA Button */}
                 <div className="mt-8">
-                  <form action="/api/checkout_sessions" method="POST">
+                  <form action={plan.action} method="POST">
                     <input type="hidden" name="plan_id" value={plan.id} />
                     <section>
                       <button type="submit" role="link"
@@ -262,7 +274,7 @@ export default function PricingSection() {
                           : 'bg-zinc-800 hover:bg-zinc-700 text-zinc-200 border border-zinc-700/50'
                           }`}
                       >
-                        Checkout
+                        {plan.button}
                       </button>
                     </section>
                   </form>
