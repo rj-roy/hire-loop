@@ -1,6 +1,6 @@
 import HandleApplyNow from '@/components/jobs/HandleApplyNow';
 import { auth } from '@/lib/auth';
-import { getAllApplications, getJobsById } from '@/lib/getData';
+import { getAllApplications, getJobsById } from '@/lib/api/getData';
 import { headers } from 'next/headers';
 import Link from 'next/link';
 

@@ -1,7 +1,7 @@
 'use client';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { getAllJobs } from '@/lib/getData';
+import { getAllJobs } from '@/lib/api/getData';
 
 const AllJobs = () => {
     const [jobs, setJobs] = useState([]);

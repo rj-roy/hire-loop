@@ -3,7 +3,7 @@ import { auth } from "../auth";
 import { headers } from "next/headers";
 
 export const getUserSession = async () => {
-    const session = await auth.api.getSession({
+    const session = await auth?.api.getSession({
         headers: await headers() 
     })
 
@@ -11,7 +11,7 @@ export const getUserSession = async () => {
 }
 
 export const getUserToken = async () => {
-    const session = await auth.api.getSession({
+    const session = await auth?.api.getSession({
         headers: await headers()
     })
 
