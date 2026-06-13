@@ -47,16 +47,12 @@ export default function NavBar() {
     return (
         <>
             {/* Top Navigation Bar */}
-            <nav 
-                className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-                    isScrolled 
-                        ? 'bg-white-bg/95 dark:bg-black-bg/95 backdrop-blur-md shadow-lg' 
-                        : 'bg-transparent'
-                }`}
+            <nav
+                className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-white-bg/95 dark:bg-black-bg/95 backdrop-blur-md shadow-lg`}
             >
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex items-center justify-between h-16 lg:h-20">
-                        
+
                         {/* Logo */}
                         <Link href="/" className="flex items-center shrink-0">
                             <span className="text-2xl lg:text-3xl font-bold bg-linear-to-r from-blue-600 via-blue-500 to-orange-500 bg-clip-text text-transparent">
@@ -102,7 +98,7 @@ export default function NavBar() {
                                     >
                                         <div className="w-7 h-7 lg:w-8 lg:h-8 rounded-full bg-white/20 flex items-center justify-center">
                                             <svg className="w-4 h-4 lg:w-5 lg:h-5" fill="currentColor" viewBox="0 0 24 24">
-                                                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                                                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
                                             </svg>
                                         </div>
                                         <span className="hidden lg:block text-sm">
@@ -122,9 +118,9 @@ export default function NavBar() {
                                                     {session.user?.email}
                                                 </p>
                                             </div>
-                                            
+
                                             {/* Menu Items */}
-                                            <div className="py-1">
+                                            <div className="py-1 ml-auto text-right">
                                                 <Link
                                                     href="/dashboard"
                                                     className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
@@ -157,9 +153,9 @@ export default function NavBar() {
                                                     Settings
                                                 </Link>
                                             </div>
-                                            
+
                                             <div className="border-t border-gray-200 dark:border-gray-700 my-1"></div>
-                                            
+
                                             <button
                                                 onClick={handleLogout}
                                                 className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
@@ -217,44 +213,35 @@ export default function NavBar() {
                                 <Link
                                     key={link.href}
                                     href={link.href}
-                                    className="block px-4 py-3 text-base font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-all duration-200"
+                                    className="block px-4 py-3 text-base font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-all duration-200 text-right"
                                     onClick={() => setIsMobileMenuOpen(false)}
                                 >
                                     {link.label}
                                 </Link>
                             ))}
-                            
+
                             <div className="border-t border-gray-200 dark:border-gray-800 pt-4 mt-4 space-y-3">
                                 {session ? (
                                     <>
-                                        <div className="px-4 py-3 bg-gray-100 dark:bg-gray-800 rounded-lg">
-                                            <p className="text-sm font-semibold text-gray-900 dark:text-white">
-                                                {session.user?.name || 'User'}
-                                            </p>
-                                            <p className="text-xs text-gray-500 dark:text-gray-400">
-                                                {session.user?.email}
-                                            </p>
+                                        <div className='flex justify-between'>
+                                            <div className="px-4 py-3 bg-gray-100 dark:bg-gray-800 rounded-lg">
+                                                <p className="text-sm font-semibold text-gray-900 dark:text-white">
+                                                    {session.user?.name || 'User'}
+                                                </p>
+                                                <p className="text-xs text-gray-500 dark:text-gray-400">
+                                                    {session.user?.email}
+                                                </p>
+                                            </div>
+
+                                            <div>
+                                                <button
+                                                onClick={handleLogout}
+                                                className="w-full text-left px-4 py-3 text-base font-medium text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-all"
+                                            >
+                                                Sign Out
+                                            </button>   
+                                            </div>
                                         </div>
-                                        <Link
-                                            href="/dashboard"
-                                            className="block px-4 py-3 text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-all"
-                                            onClick={() => setIsMobileMenuOpen(false)}
-                                        >
-                                            Dashboard
-                                        </Link>
-                                        <Link
-                                            href="/profile"
-                                            className="block px-4 py-3 text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-all"
-                                            onClick={() => setIsMobileMenuOpen(false)}
-                                        >
-                                            Profile
-                                        </Link>
-                                        <button
-                                            onClick={handleLogout}
-                                            className="w-full text-left px-4 py-3 text-base font-medium text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-all"
-                                        >
-                                            Sign Out
-                                        </button>
                                     </>
                                 ) : (
                                     <>

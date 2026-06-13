@@ -12,7 +12,7 @@ export default async function FooterSection() {
   };
 
   return (
-    <footer className="relative bg-white-bg dark:bg-black-bg overflow-hidden">
+    <footer className="relative z-60 bg-white-bg dark:bg-black-bg overflow-hidden">
       {/* CTA Section with Grid Dome Background */}
       <div className={`${session ? 'hidden' : 'relative pt-32 pb-24 px-4 text-center'}`}>
         
