@@ -18,19 +18,17 @@ export default async function Success({ searchParams }) {
         customer_details: { email: customerEmail },
         metadata
     } = await stripe.checkout.sessions.retrieve(session_id, { expand: ['line_items', 'payment_intent']});
-    console.log(metadata, 'metadata');
 
     if (status === 'open') {
         return redirect('/');
     };
     if (status === 'complete') {
         const subsInfo = {
-            email: customerEmail,
+            billingEmail: customerEmail,
             planId: metadata.planId,
             userId: userId
         };
         const subscription = await createSubscription(subsInfo);
-        console.log(subscription);
 
         return (
             <div className="w-full min-h-screen bg-zinc-950 text-zinc-50 flex flex-col justify-center items-center p-6 select-none">
